@@ -15,12 +15,27 @@ app.get('/', (req, res) => {
 
 app.get('/monster', (req, res) => {
   const sql = `
-    SELECT monster.name, monster.nickname, monster.weekness, species.species, GROUP_CONCAT(habitat.map) AS maps
+    SELECT 
+      monster.id, 
+      monster.name, 
+      monster.nickname, 
+      monster.weekness, 
+      species.species, 
+      GROUP_CONCAT(habitat.map) AS maps,
+      monster.icon_address,
+      monster.image_address
     FROM monster
     LEFT JOIN monsterdex ON monster.id = monsterdex.monsterid
     LEFT JOIN habitat ON monsterdex.habitatid = habitat.id
     LEFT JOIN species ON monsterdex.speciesid = species.id
-    GROUP BY monster.name, monster.nickname, monster.weekness, species.species;
+    GROUP BY 
+      monster.id, 
+      monster.name, 
+      monster.nickname, 
+      monster.weekness, 
+      species.species,
+      monster.icon_address,
+      monster.image_address;
   `;
   db.query(sql, (err, rows) => {
     if (err) {
