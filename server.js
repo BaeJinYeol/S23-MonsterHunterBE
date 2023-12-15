@@ -14,7 +14,21 @@ app.get('/', (req, res) => {
 })
 
 app.get('/monster', (req, res) => {
-    res.send(monster)
+  const sql = `
+    SELECT monster.name, monster.nickname, monster.weekness, species.species, GROUP_CONCAT(habitat.map) AS maps
+    FROM monster
+    LEFT JOIN monsterdex ON monster.id = monsterdex.monsterid
+    LEFT JOIN habitat ON monsterdex.habitatid = habitat.id
+    LEFT JOIN species ON monsterdex.speciesid = species.id
+    GROUP BY monster.name, monster.nickname, monster.weekness, species.species;
+  `;
+  db.query(sql, (err, rows) => {
+    if (err) {
+      res.json({result: "error"})
+      return console.log(err)
+    }
+    res.json(rows)
+  })
 })
 
 app.listen(port, () => {
