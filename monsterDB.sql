@@ -8,7 +8,7 @@ USE monsterdb;
 
 CREATE TABLE monster (
   id INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
   nickname VARCHAR(100),
   weekness VARCHAR(255),
   PRIMARY KEY(id)
@@ -72,7 +72,7 @@ INSERT INTO habitat VALUES (9, "지맥이 모이는 땅"); # 제노-지바
 INSERT INTO habitat VALUES (10, "지맥의 황금향"); # 맘-타로트
 INSERT INTO habitat VALUES (11, "깊숙한 골짜기"); # 무페토-지바, 알바트리온
 INSERT INTO habitat VALUES (12, "기원의 외딴 섬"); # 안-이슈왈다
-INSERT INTO habitat VALUES (12, "슈레이드 성"); # 밀라보레아스
+INSERT INTO habitat VALUES (13, "슈레이드 성"); # 밀라보레아스
 
 INSERT INTO monster VALUES (1, "도스쟈그라스", "적룡", "화");
 INSERT INTO monster VALUES (2, "쿠루루야크", "소조", "수");
@@ -267,7 +267,7 @@ INSERT INTO monsterdex VALUES
   (67, 6, 7),
   (68, 7, 11),
   (69, 5, 6),
-  (70, 7, 12);
+  (70, 7, 13);
 
 
 # Join
@@ -276,7 +276,9 @@ SELECT * FROM species;
 SELECT * FROM habitat;
 SELECT * FROM monsterdex;
 
-SELECT * `name`, nickname, species, map FROM monster
+SELECT monster.name, monster.nickname, monster.weekness, species.species, habitat.map
+  FROM monster
   LEFT JOIN monsterdex ON monster.id = monsterdex.monsterid
   LEFT JOIN habitat ON monsterdex.habitatid = habitat.id
   LEFT JOIN species ON monsterdex.speciesid = species.id;
+  
