@@ -10,7 +10,7 @@ CREATE TABLE monster (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   nickname VARCHAR(100),
-  weekness VARCHAR(255),
+  weakness VARCHAR(255),
   icon_address TEXT,
   image_address TEXT,
   PRIMARY KEY(id)
@@ -278,7 +278,7 @@ SELECT * FROM species;
 SELECT * FROM habitat;
 SELECT * FROM monsterdex;
 
-SELECT monster.id, monster.name, monster.nickname, monster.weekness, species.species, GROUP_CONCAT(habitat.map) AS maps, monster.icon_address, monster.image_address
+SELECT monster.id, monster.name, monster.nickname, monster.weakness, species.species, GROUP_CONCAT(habitat.map) AS maps, monster.icon_address, monster.image_address
     FROM monster
     LEFT JOIN monsterdex ON monster.id = monsterdex.monsterid
     LEFT JOIN habitat ON monsterdex.habitatid = habitat.id
@@ -287,7 +287,7 @@ SELECT monster.id, monster.name, monster.nickname, monster.weekness, species.spe
       monster.id, 
       monster.name, 
       monster.nickname, 
-      monster.weekness, 
+      monster.weakness, 
       species.species,
       monster.icon_address,
       monster.image_address;

@@ -19,7 +19,7 @@ app.get('/monster', (req, res) => {
       monster.id, 
       monster.name, 
       monster.nickname, 
-      monster.weekness, 
+      monster.weakness, 
       species.species, 
       GROUP_CONCAT(habitat.map) AS maps,
       monster.icon_address,
@@ -32,7 +32,7 @@ app.get('/monster', (req, res) => {
       monster.id, 
       monster.name, 
       monster.nickname, 
-      monster.weekness, 
+      monster.weakness, 
       species.species,
       monster.icon_address,
       monster.image_address;
